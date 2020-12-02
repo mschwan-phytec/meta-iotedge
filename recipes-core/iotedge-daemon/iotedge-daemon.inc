@@ -16,6 +16,9 @@ INITSCRIPT_NAME_${PN} = "${@bb.utils.contains('DISTRO_FEATURES','sysvinit','iote
 INITSCRIPT_PARAMS_${PN} = "defaults"
 
 do_install () {
+    # HACK: Link to Git repository
+    ln -s "${WORKDIR}/git" "${WORKDIR}/iotedge-${PV}"
+
     # Binaries
     install -d  "${D}${bindir}"
     install -m 755 "${WORKDIR}/iotedge-${PV}/edgelet/target/${CARGO_TARGET_SUBDIR}/iotedged" ${D}${bindir}/iotedged
